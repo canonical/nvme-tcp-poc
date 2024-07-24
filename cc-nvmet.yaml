@@ -1,0 +1,54 @@
+#cloud-config
+autoinstall:
+  version: 1
+  source:
+    id: ubuntu-server-minimal
+  identity:
+    hostname: nvmet
+    realname: ubuntu
+    username: ubuntu
+    password: $6$VDuw.212hptHuNMP$id7Wzc0Lem9aUl9RqydBIehO.6J2Qud6jlhgLEgXa3cnql30XIGmP5c18FRZixH.6LsgFo336Azfce8Fht0t30
+  user-data:
+    write_files:
+      - content: |
+          #!/bin/bash
+          set -e
+          subsystem=nqn.2024-06.ubuntu-nvmeotcp-poc-target
+          nvme=/dev/nvme0n1
+          ipv4=0.0.0.0
+          port=4420
+          modprobe nvmet-tcp
+          cd /sys/kernel/config/nvmet/subsystems
+          mkdir -- "${subsystem}"
+          cd -- "${subsystem}"
+          echo 1 > attr_allow_any_host
+          mkdir namespaces/1
+          cd namespaces/1
+          echo "${nvme}" > device_path
+          echo 1 > enable
+          mkdir /sys/kernel/config/nvmet/ports/1
+          cd /sys/kernel/config/nvmet/ports/1
+          echo "${ipv4}" > addr_traddr
+          echo tcp > addr_trtype
+          echo "${port}" > addr_trsvcid
+          echo ipv4 > addr_adrfam
+          ln -s /sys/kernel/config/nvmet/subsystems/"${subsystem}" /sys/kernel/config/nvmet/ports/1/subsystems/
+        path: /usr/local/bin/expose-nvme-drive
+        permissions: '0755'
+
+      - content: |
+            [Unit]
+            Wants=modprobe@nvmet_tcp.service
+            After=modprobe@nvmet_tcp.service
+
+            [Service]
+            Type=oneshot
+            RemainAfterExit=yes
+            ExecStart=/usr/local/bin/expose-nvme-drive
+
+            [Install]
+            WantedBy=multi-user.target
+        path: /etc/systemd/system/expose-nvme-drive.service
+        permissions: '0644'
+    runcmd:
+      - [systemctl, enable, --now, expose-nvme-drive]
