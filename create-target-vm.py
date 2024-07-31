@@ -46,7 +46,7 @@ def main() -> None:
             "--memory", "1024",
             "--virt-type", "kvm",
             "--location", str(args.installer_iso),
-            "--cloud-init", "user-data=cc-nvmet.yaml",
+            "--cloud-init", "user-data=resources/cc-nvmet.yaml",
             "--extra-args", " ".join(extra_args),
             f"--qemu-commandline=-drive file={nvme_target_file},if=none,id=nvm",
             "--qemu-commandline=-device nvme,drive=nvm,serial=nvme-1,addr=0x10",
