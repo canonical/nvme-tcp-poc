@@ -50,6 +50,7 @@ def main() -> None:
             "--extra-args", " ".join(extra_args),
             f"--qemu-commandline=-drive file={nvme_target_file},if=none,id=nvm",
             "--qemu-commandline=-device nvme,drive=nvm,serial=nvme-1,addr=0x10",
+            "--network", "network=poc-network",
             ]
 
     subprocess.run(cmd)

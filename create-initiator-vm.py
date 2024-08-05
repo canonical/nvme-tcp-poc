@@ -78,6 +78,7 @@ def main() -> None:
             "--virt-type", "kvm",
             "--location", str(args.installer_iso),
             "--cloud-init", f"user-data={str(rendered_cloud_config)}",
+            "--network", "network=poc-network",
             "--boot", ",".join([f"{key}={val}" for key, val in bootloader.items()])
             ]
 
