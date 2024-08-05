@@ -58,6 +58,15 @@ def main() -> None:
     rendered_cloud_config = gen_cloud_config(
             Path("resources/cc-initiator.yaml"),
             addr=target_ip, port=args.target_port)
+
+    bootloader = {
+        "loader": str(Path("resources/OVMF_CODE.fd").absolute()),
+        "loader.readonly": "yes",
+        "loader.type": "pflash",
+        "loader.secure": "false",
+        "nvram.template": str(Path("resources/OVMF_VARS.fd").absolute()),
+    }
+
     cmd = [
             "virt-install",
             "--autoconsole", "graphical",
@@ -69,6 +78,7 @@ def main() -> None:
             "--virt-type", "kvm",
             "--location", str(args.installer_iso),
             "--cloud-init", f"user-data={str(rendered_cloud_config)}",
+            "--boot", ",".join([f"{key}={val}" for key, val in bootloader.items()])
             ]
 
     subprocess.run(cmd)
