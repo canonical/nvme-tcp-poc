@@ -8,6 +8,8 @@ autoinstall:
     realname: ubuntu
     username: ubuntu
     password: $6$VDuw.212hptHuNMP$id7Wzc0Lem9aUl9RqydBIehO.6J2Qud6jlhgLEgXa3cnql30XIGmP5c18FRZixH.6LsgFo336Azfce8Fht0t30
+  packages:
+    - qemu-guest-agent
   user-data:
     write_files:
       - content: |

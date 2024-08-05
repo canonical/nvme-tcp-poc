@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import argparse
+import ipaddress
+import shutil
 import subprocess
 import tempfile
 from pathlib import Path
@@ -12,7 +14,7 @@ def parse_cli_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--console-output", action="store_true")
     parser.add_argument("--installer-iso", type=Path, default="/srv/iso/oracular-live-server-amd64.iso")
-    parser.add_argument("--target-ip", type=str, required=True)
+    parser.add_argument("--target-ip", type=str)
     parser.add_argument("--target-port", type=int, default=4420)
     return parser.parse_args()
 
@@ -35,12 +37,27 @@ def gen_cloud_config(*args, **kwargs) -> Path:
     return output_stream.name
 
 
+def get_target_ip() -> str:
+    out = subprocess.check_output(["virsh", "domifaddr", "ubuntu-nvmeotcp-poc-target", "--source", "agent", "--full"], text=True)
+
+    for line in out.splitlines():
+        if line.strip().startswith("enp1s0"):
+            ip_with_cidr = ipaddress.ip_interface(line.strip().split()[-1])
+            return str(ip_with_cidr.ip)
+    raise ValueError("Could not determine IP address of NVMe target")
+
+
 def main() -> None:
     args = parse_cli_args()
 
+    if (target_ip := args.target_ip) is None:
+        print("Trying to guess target IP")
+        target_ip = get_target_ip()
+
+
     rendered_cloud_config = gen_cloud_config(
             Path("resources/cc-initiator.yaml"),
-            addr=args.target_ip, port=args.target_port)
+            addr=target_ip, port=args.target_port)
     cmd = [
             "virt-install",
             "--autoconsole", "graphical",
