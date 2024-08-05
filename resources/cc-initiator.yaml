@@ -1,0 +1,9 @@
+#cloud-config
+autoinstall:
+  version: 1
+  interactive-sections: ["*"]
+  early-commands:
+    - apt update
+    - apt install -y nvme-cli
+  late-commands:
+    - snap run subiquity.curtin in-target --target /target -- apt -y install dracut
