@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import argparse
-import ipaddress
 import shutil
 import subprocess
 import tempfile
@@ -9,6 +8,7 @@ from pathlib import Path
 
 import yaml
 
+from ubuntu_nvme_tcp_poc import get_target_ip
 
 def parse_cli_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
@@ -35,16 +35,6 @@ def gen_cloud_config(*args, **kwargs) -> Path:
         output_stream.write("#cloud-config\n")
         output_stream.write(render_autoinstall_yaml(*args, **kwargs))
     return output_stream.name
-
-
-def get_target_ip() -> str:
-    out = subprocess.check_output(["virsh", "domifaddr", "ubuntu-nvmeotcp-poc-target", "--source", "agent", "--full"], text=True)
-
-    for line in out.splitlines():
-        if line.strip().startswith("enp1s0"):
-            ip_with_cidr = ipaddress.ip_interface(line.strip().split()[-1])
-            return str(ip_with_cidr.ip)
-    raise ValueError("Could not determine IP address of NVMe target")
 
 
 def main() -> None:
