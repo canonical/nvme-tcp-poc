@@ -2,6 +2,14 @@ import ipaddress
 import subprocess
 
 
+def get_initiator_mac() -> str:
+    output = subprocess.check_output(
+        ["virsh", "domiflist", "--inactive", "ubuntu-nvmeotcp-poc-initiator"],
+        text=True)
+    lines = output.splitlines()
+    return lines[2].split()[-1]
+
+
 def get_target_ip() -> str:
     out = subprocess.check_output(
         ["virsh", "domifaddr", "ubuntu-nvmeotcp-poc-target", "--source", "agent", "--full"],
