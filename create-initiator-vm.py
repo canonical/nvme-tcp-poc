@@ -76,9 +76,10 @@ def main() -> None:
             "--disk", "none",
             "--memory", "2048",
             "--virt-type", "kvm",
-            "--location", str(args.installer_iso),
+            "--location", f"{str(args.installer_iso)},kernel=/casper/vmlinuz,initrd=/casper/initrd",
             "--cloud-init", f"user-data={str(rendered_cloud_config)}",
             "--network", "network=poc-network",
+            "--osinfo", "detect=on,require=off,name=ubuntu24.04",
             "--boot", ",".join([f"{key}={val}" for key, val in bootloader.items()])
             ]
 
