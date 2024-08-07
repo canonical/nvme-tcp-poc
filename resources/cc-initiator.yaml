@@ -3,6 +3,7 @@ autoinstall:
   version: 1
   interactive-sections: ["*"]
   early-commands:
+    - systemctl is-active --wait network-online.target
     - apt update
     - apt install -y nvme-cli
   late-commands:
