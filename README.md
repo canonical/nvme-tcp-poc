@@ -81,6 +81,18 @@ virsh pool-create-as ubuntu-nvmeotcp-poc --type dir --target "$PWD/pool"
  * the firewall accepts forwarding to the trunk
  * packets are properly NATed when using IPv4
 
+### Optional: setting up virt-manager for the PoC
+
+Run `virt-manager` once to make it connect to the QEMU/KVM User session:
+
+```bash
+virt-manager qemu:///session
+```
+
+The VMs that will soon be created will now be visible in `virt-manager`. We can
+use this tool to start, stop, delete and edit VMs. Everything can also be done
+directly using `virsh`.
+
 ### Create the target VM
 
 ```bash
