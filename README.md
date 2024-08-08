@@ -44,7 +44,8 @@ Download the necessary installer ISOs. Ubuntu 24.04 will be installed on the
 NVMe target VM whereas Ubuntu 24.10 will be installed on the NVMe initiator VM.
 
 ```bash
-mkdir --parents /srv/iso
+sudo mkdir --parents /srv/iso
+sudo chown -- "$UID" /srv/iso
 wget https://releases.ubuntu.com/24.04/ubuntu-24.04-live-server-amd64.iso \
  --directory-prefix /srv/iso
 wget https://cdimage.ubuntu.com/ubuntu-server/daily-live/20240801/oracular-live-server-amd64.iso \
