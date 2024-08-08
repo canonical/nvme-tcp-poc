@@ -115,9 +115,32 @@ virsh start ubuntu-nvmeotcp-poc-target
 
 ### Create and setup the initiator VM
 
+The setup to deploy the initiator VM is assisted (NVMe drives discovery happens
+in the background) but not automated. To deploy this VM you need to run the command below:
+
 ```bash
 ./create-initiator-vm.py
 ```
+
+And then follow the normal steps to install Ubuntu Server:
+
+1. Go through the language and keyboard selection screens as you would like.
+2. On the source selection screen, select "Ubuntu Server (minimized)" and
+   uncheck the "Search for third-party drivers" checkbox. This is optional but
+   will speed up the installation.
+3. Go through the network, proxy and mirror screens as you would like.
+4. When reaching the "Guided storage configuration screen", select "Custom Storage layout".
+5. On the next screen, ensure no partitions already exist on the NVMe/TCP
+   drive. Otherwise select the drive and choose "Reformat".
+6. Select the free space and choose "Add GPT Partition" (you can leave the
+   default settings and hit "Create").
+7. Ensure the summary at the top shows two partitions (i.e., "/" and
+   "/boot/efi") to be created on the NVMe/TCP drive.
+8. Move on to the next screen and confirm the changes when asked.
+9. Go through the next screens normally and wait for the installation to finish.
+10. When the "Installation complete!" screen is shown, select "Reboot now".
+11. If the VM does not completely shut down, you can use virt-manager to force
+    it off. See the "Known issues" section at the end of this document.
 
 ## Known issues
 
