@@ -31,7 +31,7 @@ drive exposed on the network.
 ### Install the required packages on the host
 
 ```bash
-apt install \
+sudo apt install \
   libvirt-daemon libvirt-clients virtinst virt-viewer qemu-system-x86 \
   libcap2-bin \
   wget \
