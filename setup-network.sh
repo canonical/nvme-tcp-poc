@@ -18,6 +18,7 @@ nmcli connection add \
   con-name "POC bridge" \
   ifname pocbr0 \
   type bridge \
+  autoconnect yes \
   ipv4.method shared \
   ipv6.method ignore
 
