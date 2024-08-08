@@ -118,3 +118,11 @@ virsh start ubuntu-nvmeotcp-poc-target
 ```bash
 ./create-initiator-vm.py
 ```
+
+## Known issues
+
+ * "When installing the target VM, the installer waits for me to select a language instead of running automatically.". This is a known issue (see [bug 2073461](https://bugs.launchpad.net/ubuntu/+source/virt-manager/+bug/2073461) that should be addressed by installing the virtinst package from the [ogayot/nvme-o-tcp PPA](https://launchpad.net/~ogayot/+archive/ubuntu/nvme-o-tcp).
+
+ * The installer removes dracut and reinstalls initramfs-tools at the end of the installation. This is a known issue (see [bug 2073125](https://bugs.launchpad.net/subiquity/+bug/2073125). There is a workaround in the PoC (see resources/cc-initiator.yaml) to reinstall dracut after it gets removed.
+ * Installing dracut removes the `ubuntu-server` metapackage. There is no workaround or fix for now but it should not affect the usability of the installed system.
+ * The initiator VM takes forever to shutdown. There is no workaround or fix for now. You can use the "Force Off" button with virt-manager.
