@@ -65,7 +65,6 @@ virsh pool-create-as ubuntu-nvmeotcp-poc --type dir --target "$PWD/pool"
 ```
 
 **TODO**: Ensure that:
- * IPv4 forwarding is enabled
  * the firewall accepts forwarding to the trunk
  * packets are properly NATed
 
