@@ -18,7 +18,7 @@ def find_nvme_target_drive(nvme_volume_name: str, *, create=False) -> Path:
         subprocess.run(["virsh", "vol-create-as",
                         "--pool", "ubuntu-nvmeotcp-poc",
                         "--name", nvme_volume_name,
-                        "--capacity", "5G",
+                        "--capacity", "8G",
                         "--format", "qcow2"])
 
     cmd = ["virsh", "vol-path",
