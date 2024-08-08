@@ -142,6 +142,10 @@ And then follow the normal steps to install Ubuntu Server:
 11. If the VM does not completely shut down, you can use virt-manager to force
     it off. See the "Known issues" section at the end of this document.
 
+### Configure the firmware
+
+TODO
+
 ## Known issues
 
  * "When installing the target VM, the installer waits for me to select a language instead of running automatically.". This should be addressed by installing the virtinst package from the [ogayot/nvme-o-tcp PPA](https://launchpad.net/~ogayot/+archive/ubuntu/nvme-o-tcp). See [bug 2073461](https://bugs.launchpad.net/ubuntu/+source/virt-manager/+bug/2073461).
