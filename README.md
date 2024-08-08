@@ -100,11 +100,17 @@ directly using `virsh`.
 ### Create and setup the target VM
 
 The setup to deploy the target VM uses Subiquity's autoinstall directives and
-should be entirely automated. Wait until the VM shuts down and then move on to
-the next step.
+should be entirely automated. Wait until the VM shuts down.
 
 ```bash
 ./create-target-vm.py
+```
+
+Now start the VM (using virt-manager or the command below) and move on to the
+next step:
+
+```bash
+virsh start ubuntu-nvmeotcp-poc-target
 ```
 
 ### Create and setup the initiator VM
