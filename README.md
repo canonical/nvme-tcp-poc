@@ -28,6 +28,8 @@ The second VM (a.k.a., the NVMe initiator VM) will be a disk-less system
 running Ubuntu Server 24.10 (or Ubuntu 24.04.x in the future) using the NVMe
 drive exposed on the network.
 
+## Prerequisites
+
 ### Install the required packages on the host
 
 Install all the dependencies on the host to run the PoC.
@@ -93,7 +95,9 @@ The VMs that will soon be created will now be visible in `virt-manager`. We can
 use this tool to start, stop, delete and edit VMs. Everything can also be done
 directly using `virsh`.
 
-### Create the target VM
+## Create the VMs
+
+### Create and setup the target VM
 
 The setup to deploy the target VM uses Subiquity's autoinstall directives and
 should be entirely automated. Wait until the VM shuts down and then move on to
@@ -103,7 +107,7 @@ the next step.
 ./create-target-vm.py
 ```
 
-### Install Ubuntu on the initiator
+### Create and setup the initiator VM
 
 ```bash
 ./create-initiator-vm.py
