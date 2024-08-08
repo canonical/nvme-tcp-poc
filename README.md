@@ -95,6 +95,10 @@ directly using `virsh`.
 
 ### Create the target VM
 
+The setup to deploy the target VM uses Subiquity's autoinstall directives and
+should be entirely automated. Wait until the VM shuts down and then move on to
+the next step.
+
 ```bash
 ./create-target-vm.py
 ```
