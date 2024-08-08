@@ -39,6 +39,7 @@ def main() -> None:
 
     cmd = [
             "virt-install",
+            "--autoconsole", "graphical",
             "--noreboot",
             "--connect", "qemu:///session",
             "--name", "ubuntu-nvmeotcp-poc-target",
