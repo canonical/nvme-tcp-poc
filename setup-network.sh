@@ -33,4 +33,6 @@ cat > /tmp/netdef.xml <<EOF
 </network>
 EOF
 
-virsh net-create /tmp/netdef.xml
+virsh net-define /tmp/netdef.xml
+virsh net-start poc-network
+virsh net-autostart poc-network
