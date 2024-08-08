@@ -32,7 +32,7 @@ drive exposed on the network.
 
 ```bash
 sudo apt install \
-  libvirt-daemon libvirt-clients virtinst virt-viewer qemu-system-x86 \
+  libvirt-daemon libvirt-clients virtinst virt-viewer virt-manager qemu-system-x86 \
   libcap2-bin \
   wget \
   python3-jinja2 python3-yaml
