@@ -62,7 +62,7 @@ sudo mkdir --parents /srv/iso
 sudo chown -- "$UID" /srv/iso
 wget https://releases.ubuntu.com/24.04/ubuntu-24.04-live-server-amd64.iso \
  --directory-prefix /srv/iso
-wget https://cdimage.ubuntu.com/ubuntu-server/daily-live/20240801/oracular-live-server-amd64.iso \
+wget https://cdimage.ubuntu.com/ubuntu-server/daily-live/current/oracular-live-server-amd64.iso \
  --directory-prefix /srv/iso
 ```
 
