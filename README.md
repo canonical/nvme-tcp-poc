@@ -81,10 +81,6 @@ virsh --connect qemu:///session pool-start ubuntu-nvmeotcp-poc
 ./setup-network.sh
 ```
 
-**TODO**: Ensure that:
- * the firewall accepts forwarding to the trunk
- * packets are properly NATed when using IPv4
-
 ### Optional: setting up virt-manager for the PoC
 
 Run `virt-manager` once to make it connect to the QEMU/KVM User session:
