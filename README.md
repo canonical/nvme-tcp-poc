@@ -141,7 +141,12 @@ And then follow the normal steps to install Ubuntu Server:
 11. If the VM does not completely shut down, you can use virt-manager to force
     it off. See the "Known issues" section at the end of this document.
 
-### Configure the firmware
+### Configure the firmware on the initiator VM
+
+Run `./configure-firmware.py` and follow the instructions.
+
+<details>
+<summary>For manual steps, click here</summary>
 
 1. Check the IP address of the target VM using the following command:
 
@@ -166,6 +171,13 @@ And then follow the normal steps to install Ubuntu Server:
 11. Press ENTER and start mashing the "Esc" key.
 12. Once the firmware menu opens again, navigate to "Boot Manager"
 13. You should see an entry called "UEFI NVMeOF Linux". Select it to boot into the newly installed system.
+
+</details>
+
+### Booting the initiator VM
+
+When starting the initiator VM, always remember to access the firmware configuration menu by hitting ESC repeatedly.
+Then navigate to "Boot Manager" and select the "UEFI NVMeOF Linux" entry. If the entry does not appear, go back, select "Reset" and start mashing the ESC key again.
 
 ## Known issues
 
