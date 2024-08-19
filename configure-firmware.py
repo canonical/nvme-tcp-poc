@@ -80,6 +80,24 @@ def create_efidisk(config: Path) -> Path:
         yield efidisk
 
 
+@contextlib.contextmanager
+def add_temporary_disk(domain: str, disk: Path):
+    subprocess.run(["virsh", "--connect", "qemu:///session", "attach-disk",
+                    "--domain", domain,
+                    "--source", disk,
+                    "--target", "vdb",
+                    "--persistent",
+                    ], check=True)
+    try:
+        yield
+    finally:
+        subprocess.run(["virsh", "--connect", "qemu:///session", "detach-disk",
+                        "--domain", domain,
+                        "--target", "vdb",
+                        "--persistent",
+                        ], check=True)
+
+
 def main() -> None:
     args = parse_cli_args()
 
@@ -91,7 +109,17 @@ def main() -> None:
     config_path = create_firmware_config(Path("resources/Config.j2"), target_ip=target_ip, mac=mac)
 
     with create_efidisk(config_path) as efidisk:
-        pass
+        with add_temporary_disk("ubuntu-nvmeotcp-poc-initiator", efidisk):
+            text = """
+After you hit ENTER, virt-viewer will spawn. Please hit ESC repeatedly as soon as the window opens.
+Once the firmware configuration menu opens, navigate to "Boot Manager" and choose "EFI Internal Shell".
+Let the startup.nsh script run and then close the window.
+"""
+
+            input(text)
+            subprocess.run(["virsh", "--connect", "qemu:///session", "start", "ubuntu-nvmeotcp-poc-initiator"], check=True)
+            subprocess.run(["virt-viewer", "--connect", "qemu:///session", "ubuntu-nvmeotcp-poc-initiator"], check=True)
+            subprocess.run(["virsh", "--connect", "qemu:///session", "destroy", "ubuntu-nvmeotcp-poc-initiator"], check=True)
 
 if __name__ == "__main__":
     main()
