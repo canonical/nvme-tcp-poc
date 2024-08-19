@@ -49,7 +49,8 @@ sudo apt install \
   libvirt-daemon libvirt-clients virtinst virt-viewer virt-manager qemu-system-x86 \
   libcap2-bin \
   wget \
-  python3-jinja2 python3-yaml
+  python3-jinja2 python3-yaml \
+  fusefat fdisk dosfstools
 ```
 
 ### Download the installer ISOs

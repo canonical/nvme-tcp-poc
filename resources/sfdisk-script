@@ -1,0 +1,7 @@
+label: dos
+device: efidisk.img
+unit: sectors
+sector-size: 512
+
+efidisk.in1 : start=        2048, type=ef
+
