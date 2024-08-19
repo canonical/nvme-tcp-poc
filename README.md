@@ -70,7 +70,9 @@ wget https://cdimage.ubuntu.com/ubuntu-server/daily-live/current/oracular-live-s
 
 ```bash
 mkdir --parents pool
-virsh pool-create-as ubuntu-nvmeotcp-poc --type dir --target "$PWD/pool"
+virsh pool-define-as ubuntu-nvmeotcp-poc --type dir --target "$PWD/pool"
+virsh pool-autostart ubuntu-nvmeotcp-poc
+virsh pool-start ubuntu-nvmeotcp-poc
 ```
 
 ### Prepare the network
