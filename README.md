@@ -142,7 +142,29 @@ And then follow the normal steps to install Ubuntu Server:
 
 ### Configure the firmware
 
-TODO
+1. Check the IP address of the target VM using the following command:
+
+```
+   $ virsh --connect qemu:///session domifaddr --source agent ubuntu-nvmeotcp-poc-target --interface enp1s0
+```
+
+2. Open virt-manager and double click on the "ubuntu-nvmeotcp-poc-initiator" VM.
+3. Get ready to hit the "Esc" repeatedly as soon as we power on the machine.
+4. Power on the VM using the "play" icon (⏵) and then immediately start mashing "Esc".
+5. Once the firmware menu opens, navigate to "Device Manager" -> "NVMe-oF Configuration" -> "Attempt 1".
+6. Set the following configuration items:
+    1. NVM Subsystem `<Enabled>`
+    2. Network Device List (pick the only one that is available)
+    3. Enable DHCP [x]
+    4. NVM Subsystem NQN `nqn.2024-06.ubuntu-nvmeotcp-poc-target`
+    5. NVM Subsystem Address (use the address you got in step 1)
+7. Go to "Save changes" at the bottom to submit
+8. Press "Esc" twice to get back to the main menu
+9. Select "Continue" and hit enter
+10. The "Configuration changed" screen should appear, prompting you to hit ENTER. Get ready to hit "Esc" repeatedly again.
+11. Press ENTER and start mashing the "Esc" key.
+12. Once the firmware menu opens again, navigate to "Boot Manager"
+13. You should see an entry called "UEFI NVMeOF Linux". Select it to boot into the newly installed system.
 
 ## Known issues
 
