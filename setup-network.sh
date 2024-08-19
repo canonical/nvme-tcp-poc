@@ -34,6 +34,6 @@ cat > /tmp/netdef.xml <<EOF
 </network>
 EOF
 
-virsh net-define /tmp/netdef.xml
-virsh net-start poc-network
-virsh net-autostart poc-network
+virsh --connect qemu:///session net-define /tmp/netdef.xml
+virsh --connect qemu:///session net-start poc-network
+virsh --connect qemu:///session net-autostart poc-network

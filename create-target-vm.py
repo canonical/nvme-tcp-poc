@@ -15,13 +15,15 @@ def parse_cli_args() -> argparse.Namespace:
 
 def find_nvme_target_drive(nvme_volume_name: str, *, create=False) -> Path:
     if create:
-        subprocess.run(["virsh", "vol-create-as",
+        subprocess.run(["virsh", "--connect", "qemu:///session",
+                        "vol-create-as",
                         "--pool", "ubuntu-nvmeotcp-poc",
                         "--name", nvme_volume_name,
                         "--capacity", "8G",
                         "--format", "qcow2"])
 
-    cmd = ["virsh", "vol-path",
+    cmd = ["virsh", "--connect", "qemu:///session",
+           "vol-path",
            "--pool", "ubuntu-nvmeotcp-poc",
            "--vol", nvme_volume_name]
     return Path(subprocess.check_output(cmd, text=True).rstrip())

@@ -70,9 +70,9 @@ wget https://cdimage.ubuntu.com/ubuntu-server/daily-live/current/oracular-live-s
 
 ```bash
 mkdir --parents pool
-virsh pool-define-as ubuntu-nvmeotcp-poc --type dir --target "$PWD/pool"
-virsh pool-autostart ubuntu-nvmeotcp-poc
-virsh pool-start ubuntu-nvmeotcp-poc
+virsh --connect qemu:///session pool-define-as ubuntu-nvmeotcp-poc --type dir --target "$PWD/pool"
+virsh --connect qemu:///session pool-autostart ubuntu-nvmeotcp-poc
+virsh --connect qemu:///session pool-start ubuntu-nvmeotcp-poc
 ```
 
 ### Prepare the network
@@ -112,7 +112,7 @@ Now start the VM (using virt-manager or the command below) and move on to the
 next step:
 
 ```bash
-virsh start ubuntu-nvmeotcp-poc-target
+virsh --connect qemu://session start ubuntu-nvmeotcp-poc-target
 ```
 
 ### Create and setup the initiator VM
