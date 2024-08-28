@@ -50,7 +50,8 @@ sudo apt install \
   libcap2-bin \
   wget \
   python3-jinja2 python3-yaml \
-  fusefat fdisk dosfstools
+  fusefat fdisk dosfstools \
+  git
 ```
 
 ### Download the installer ISOs
@@ -65,6 +66,21 @@ wget https://releases.ubuntu.com/24.04/ubuntu-24.04-live-server-amd64.iso \
  --directory-prefix /srv/iso
 wget https://cdimage.ubuntu.com/ubuntu-server/daily-live/current/oracular-live-server-amd64.iso \
  --directory-prefix /srv/iso
+```
+
+### Download the content of this repository
+
+The simplest way is to run the following command:
+
+```bash
+$ git clone https://github.com/canonical/nvme-tcp-poc
+```
+
+NOTE: the subsequent steps will assume that the current working directory is
+set to the root of the repository. Navigate to the repository using:
+
+```bash
+$ cd nvme-tcp-poc
 ```
 
 ### Prepare the libvirt pool
