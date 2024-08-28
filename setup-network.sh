@@ -4,13 +4,15 @@ set -e
 
 if [ "$(sysctl --values net.ipv4.ip_forward)" -ne 1 ]; then
     echo "IPv4 forwarding is not enabled, please ensure to enable it using the following command:" >&2
-    echo "sudo sysctl net.ipv4.ip_forward=1" >&2
+    echo "$ sudo sysctl net.ipv4.ip_forward=1" >&2
+    echo "Then rerun this script." >&2
     exit 1
 fi
 
 if [ "$(sysctl --values net.ipv6.conf.all.forwarding)" -ne 1 ]; then
     echo "IPv6 forwarding is not enabled, please ensure to enable it using the following command:" >&2
-    echo "sudo sysctl net.ipv6.conf.all.forwarding=1" >&2
+    echo "$ sudo sysctl net.ipv6.conf.all.forwarding=1" >&2
+    echo "Then rerun this script." >&2
     exit 1
 fi
 

@@ -94,9 +94,15 @@ virsh --connect qemu:///session pool-start ubuntu-nvmeotcp-poc
 
 ### Prepare the network
 
+Run the following script:
+
 ```bash
 ./setup-network.sh
 ```
+
+The script will check whether IP forwarding is enabled. If not, it will ask
+you to run a command as root. Do so and then rerun the `./setup-network.sh`
+script until if finishes successfully.
 
 ### Optional: setting up virt-manager for the PoC
 
