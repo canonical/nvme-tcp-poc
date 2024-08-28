@@ -87,7 +87,7 @@ virsh --connect qemu:///session pool-start ubuntu-nvmeotcp-poc
 Run `virt-manager` once to make it connect to the QEMU/KVM User session:
 
 ```bash
-virt-manager qemu:///session
+virt-manager --connect qemu:///session
 ```
 
 The VMs that will soon be created will now be visible in `virt-manager`. We can
