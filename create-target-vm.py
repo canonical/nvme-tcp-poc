@@ -8,7 +8,7 @@ from pathlib import Path
 def parse_cli_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--console-output", action="store_true")
-    parser.add_argument("--installer-iso", type=Path, default="/srv/iso/ubuntu-24.04-live-server-amd64.iso")
+    parser.add_argument("--installer-iso", type=Path, default="/srv/iso/ubuntu-24.04.1-live-server-amd64.iso")
     parser.add_argument("--nvme-volume-name", default="nvme-target.qcow2")
     return parser.parse_args()
 
