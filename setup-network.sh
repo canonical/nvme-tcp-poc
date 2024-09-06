@@ -24,7 +24,12 @@ nmcli connection add \
   ipv4.method shared \
   ipv6.method ignore
 
-sudo setcap cap_net_admin+ep /usr/lib/qemu/qemu-bridge-helper
+if [ -e /usr/libexec/qemu/qemu-bridge-helper ]; then
+    sudo setcap cap_net_admin+ep /usr/libexec/qemu/qemu-bridge-helper
+fi
+if [ -e /usr/lib/qemu/qemu-bridge-helper ]; then
+    sudo setcap cap_net_admin+ep /usr/lib/qemu/qemu-bridge-helper
+fi
 sudo mkdir --parents /etc/qemu
 echo "allow pocbr0" | sudo dd of=/etc/qemu/bridge.conf
 
