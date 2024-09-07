@@ -16,7 +16,7 @@ autoinstall:
           #!/bin/bash
           set -e
           subsystem=nqn.2024-06.ubuntu-nvmeotcp-poc-target
-          nvme=/dev/nvme0n1
+          nvmes=(/dev/nvme0n1)
           ipv4=0.0.0.0
           port=4420
           modprobe nvmet-tcp
@@ -24,10 +24,20 @@ autoinstall:
           mkdir -- "${subsystem}"
           cd -- "${subsystem}"
           echo 1 > attr_allow_any_host
-          mkdir namespaces/1
-          cd namespaces/1
-          echo "${nvme}" > device_path
-          echo 1 > enable
+          expose_nvme()
+          {
+              local namespace=$1
+              local nvme=$2
+              mkdir -- namespaces/"$namespace"
+              cd namespaces/"$namespace"
+              echo "${nvme}" > device_path
+              echo 1 > enable
+          }
+          idx=0
+          for nvme in "${nvmes[@]}"; do
+              (expose_nvme "$((idx + 1))" "$nvme")
+              let idx++
+          done
           mkdir /sys/kernel/config/nvmet/ports/1
           cd /sys/kernel/config/nvmet/ports/1
           echo "${ipv4}" > addr_traddr
@@ -35,7 +45,7 @@ autoinstall:
           echo "${port}" > addr_trsvcid
           echo ipv4 > addr_adrfam
           ln -s /sys/kernel/config/nvmet/subsystems/"${subsystem}" /sys/kernel/config/nvmet/ports/1/subsystems/
-        path: /usr/local/bin/expose-nvme-drive
+        path: /usr/local/bin/expose-nvme-drives
         permissions: '0755'
 
       - content: |
@@ -46,11 +56,11 @@ autoinstall:
             [Service]
             Type=oneshot
             RemainAfterExit=yes
-            ExecStart=/usr/local/bin/expose-nvme-drive
+            ExecStart=/usr/local/bin/expose-nvme-drives
 
             [Install]
             WantedBy=multi-user.target
-        path: /etc/systemd/system/expose-nvme-drive.service
+        path: /etc/systemd/system/expose-nvme-drives.service
         permissions: '0644'
     runcmd:
-      - [systemctl, enable, --now, expose-nvme-drive]
+      - [systemctl, enable, --now, expose-nvme-drives]
