@@ -8,7 +8,8 @@ The PoC uses libvirt to manage the VMs and uses KVM as the hypervisor. It is
 meant to be run on an x86_64 system.
 
 The first VM (a.k.a., the NVMe target VM) will run Ubuntu Server 24.04 and will
-be responsible for exposing a NVMe drive over TCP.
+be responsible for exposing a NVMe drive over TCP. This NVMe drive will be
+the target installation disk for the second VM.
 
 Theoretically speaking, there is no need for the NVMe target system to run a
 specific version of Ubuntu, or even a specific OS. If you already have an
