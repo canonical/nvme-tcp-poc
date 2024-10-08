@@ -6,5 +6,3 @@ autoinstall:
     - [timeout, "30", sh, -c, 'while [ -z "$(ip route show default)" ]; do sleep 1; done']
     - apt update
     - apt install -y nvme-cli
-  late-commands:
-    - snap run subiquity.curtin in-target --target /target -- apt -y install dracut
