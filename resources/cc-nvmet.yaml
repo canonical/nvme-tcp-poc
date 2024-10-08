@@ -36,7 +36,7 @@ autoinstall:
           idx=0
           for nvme in "${nvmes[@]}"; do
               (expose_nvme "$((idx + 1))" "$nvme")
-              let idx++
+              let idx+=1
           done
           mkdir /sys/kernel/config/nvmet/ports/1
           cd /sys/kernel/config/nvmet/ports/1
