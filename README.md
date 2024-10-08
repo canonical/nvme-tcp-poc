@@ -35,16 +35,6 @@ drive exposed on the network.
 
 Install all the dependencies on the host to run the PoC.
 
-At the time of writing, there is a bug in virt-install preventing it from
-installing Ubuntu in a fully automated way (see [bug
-2073461](https://bugs.launchpad.net/ubuntu/+source/virt-manager/+bug/2073461)).
-A fix is available in the PPA
-[ppa:ogayot/nvme-o-tcp](https://launchpad.net/~ogayot/+archive/ubuntu/nvme-o-tcp).
-
-```bash
-sudo add-apt-repository ppa://ogayot/nvme-o-tcp
-```
-
 ```bash
 sudo apt install \
   libvirt-daemon libvirt-clients virtinst virt-viewer virt-manager qemu-system-x86 \
