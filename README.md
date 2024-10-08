@@ -1,8 +1,8 @@
 # NVMe/TCP booting Ubuntu Server (PoC)
 
-The instructions in this proof of concept (PoC) will guide you through the
-steps to demonstrate the use of NVMe over TCP on Ubuntu, using two virtual
-machines on an Ubuntu Desktop 24.04 host system.
+The following instructions will guide you through the steps to setup and
+demonstrate the use of the NVMe over TCP proof of concept (PoC) on Ubuntu,
+using two virtual machines on an Ubuntu Desktop 24.04 host system.
 
 The PoC uses libvirt to manage the VMs and uses KVM as the hypervisor. It is
 meant to be run on an x86_64 system.
