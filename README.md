@@ -193,9 +193,6 @@ When starting the initiator VM, always remember to access the firmware configura
 Then navigate to "Boot Manager" and select the "UEFI NVMeOF Linux" entry. If the entry does not appear, go back, select "Reset" and start mashing the ESC key again.
 
 ## Known issues
-
- * "When installing the target VM, the installer waits for me to select a language instead of running automatically.". This should be addressed by installing the virtinst package from the [ogayot/nvme-o-tcp PPA](https://launchpad.net/~ogayot/+archive/ubuntu/nvme-o-tcp). See [LP:#2073461](https://bugs.launchpad.net/ubuntu/+source/virt-manager/+bug/2073461).
-
  * Installing dracut removes the `ubuntu-server` metapackage. There is no workaround or fix for now but it should not affect the usability of the installed system.
  * The initiator VM takes forever to shutdown. There is no workaround or fix for now. You can use the "Force Off" button with virt-manager.
 
@@ -203,3 +200,4 @@ Then navigate to "Boot Manager" and select the "UEFI NVMeOF Linux" entry. If the
 
  * "I chose "Use an entire disk" instead of "Custom storage layout" and ended up with a system that does not boot.". Please use "Custom storage layout" for now. The progress is tracked in [LP:#2073119](https://bugs.launchpad.net/subiquity/+bug/2073119).
  * The installer removes dracut and reinstalls initramfs-tools at the end of the installation. See [LP:#2073125](https://bugs.launchpad.net/subiquity/+bug/2073125). There is a workaround in the PoC (see resources/cc-initiator.yaml) to reinstall dracut after it gets removed.
+ * "When installing the target VM, the installer waits for me to select a language instead of running automatically.". This should be addressed by installing the virtinst package from the [ogayot/nvme-o-tcp PPA](https://launchpad.net/~ogayot/+archive/ubuntu/nvme-o-tcp). See [LP:#2073461](https://bugs.launchpad.net/ubuntu/+source/virt-manager/+bug/2073461).
