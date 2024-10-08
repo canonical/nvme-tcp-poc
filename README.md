@@ -122,7 +122,7 @@ Now start the VM (using virt-manager or the command below) and move on to the
 next step:
 
 ```bash
-virsh --connect qemu://session start ubuntu-nvmeotcp-poc-target
+virsh --connect qemu:///session start ubuntu-nvmeotcp-poc-target
 ```
 
 ### Create and setup the initiator VM
