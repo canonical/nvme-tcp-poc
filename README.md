@@ -15,7 +15,7 @@ Theoretically speaking, there is no need for the NVMe target system to run a
 specific version of Ubuntu, or even a specific OS. If you already have an
 available system exposing a NVMe drive over TCP, it should be usable for the
 PoC without deviating too much from the instructions. In this document, we will
-assume that the NVMe target system was created using the instructions below ;
+assume that the NVMe target system was created using the instructions below;
 but if you feel like experimenting, here's a non-exhaustive list of
 expectations for the NVMe target system:
 
