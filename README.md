@@ -92,8 +92,8 @@ Run the following script:
 ```
 
 The script will check whether IP forwarding is enabled. If not, it will ask
-you to run a command as root. Do so and then rerun the `./setup-network.sh`
-script until if finishes successfully.
+you to run a command as root to enable it. Do so and then rerun
+the `./setup-network.sh` script until if finishes successfully.
 
 ### Optional: setting up virt-manager for the PoC
 
