@@ -26,7 +26,7 @@ def render_config_template(template: Path, *, target_ip: str, mac: str) -> str:
     context = {
         "targetip": target_ip,
         "targetport": "4420",
-        "mac": mac,
+        "mac": mac.upper(),
         # It is a shame that we need to specify those, because they are
         # automatically set to acceptable values when installing the OS.
         "hostid": str(uuid.uuid4()),
