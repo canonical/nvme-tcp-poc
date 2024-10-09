@@ -193,8 +193,20 @@ When starting the initiator VM, always remember to access the firmware configura
 Then navigate to "Boot Manager" and select the "UEFI NVMeOF Linux" entry. If the entry does not appear, go back, select "Reset" and start mashing the ESC key again.
 
 ## Known issues
+
  * Installing dracut removes the `ubuntu-server` metapackage. There is no workaround or fix for now but it should not affect the usability of the installed system.
  * The initiator VM takes forever to shutdown. There is no workaround or fix for now. You can use the "Force Off" button with virt-manager.
+ * When booting the initiator VM, the boot sequence gets interrupted with errors visible (see below) after pivoting to the actual root file-system. This is a known issue tracked in [LP: #2084012](https://bugs.launchpad.net/subiquity/+bug/2084012) and a workaround is in place in the PoC to avoid it (see `late-commands` in [/resources/cc-initiator.yaml](/resources/cc-initiator.yaml)).
+
+```
+nvme0c0n1: I/O Cmd(0x2) @ LBA 5726464, 32 blocks, I/O Error (sct 0x3 / sc 0x71)
+nvme0c0n1: I/O Cmd(0x2) @ LBA 4181768, 80 blocks, I/O Error (sct 0x3 / sc 0x71)
+I/O error, dev nvme0c0n1, sector 4181768 op 0x0:(READ) flags 0x2080700 phys_seg 4 prio class 0
+I/O error, dev nvme0c0n1, sector 5726464 op 0x0:(READ) flags 0x2080700 phys_seg 4 prio class 0
+[...]
+nvme nvme0: failed nvme_keep_alive_end_io error=10
+nvme nvme0: failed to bind queue 0 socket -99
+```
 
 ### Known issues that are now addressed
 
