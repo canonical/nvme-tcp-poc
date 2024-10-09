@@ -6,3 +6,7 @@ autoinstall:
     - [timeout, "30", sh, -c, 'while [ -z "$(ip route show default)" ]; do sleep 1; done']
     - apt update
     - apt install -y nvme-cli
+  late-commands:
+    - apt-get install -y yq
+    - cp /target/etc/cloud/cloud.cfg.d/90-installer-network.cfg /target/etc/cloud/cloud.cfg.d/.90-installer-network.cfg.poc.bak
+    - [yq, '.network.ethernets |= with_entries(select(.key == "enp1s0") | .key = "nbft0" | .value.critical = true)', --yaml-output, --in-place, /target/etc/cloud/cloud.cfg.d/90-installer-network.cfg]
