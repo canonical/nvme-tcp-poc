@@ -55,6 +55,7 @@ def main() -> None:
         "loader.type": "pflash",
         "loader.secure": "false",
         "nvram.template": str(Path("resources/OVMF_VARS.fd").absolute()),
+        "menu": "on",
     }
 
     cmd = [
