@@ -26,8 +26,8 @@ expectations for the NVMe target system:
  * the libvirt domain name for the system is "ubuntu-nvmeotcp-poc-target"
 
 The second VM (a.k.a., the NVMe initiator VM) will be a disk-less system
-running Ubuntu Server 24.10 (or Ubuntu 24.04.x in the future) using the NVMe
-drive exposed on the network.
+running Ubuntu Server 24.10 or 25.04 (or Ubuntu 24.04.x in the future) using
+the NVMe drive exposed on the network.
 
 ## Prerequisites
 
@@ -48,14 +48,14 @@ sudo apt install \
 ### Download the installer ISOs
 
 Download the necessary installer ISOs. Ubuntu 24.04 will be installed on the
-NVMe target VM whereas Ubuntu 24.10 will be installed on the NVMe initiator VM.
+NVMe target VM whereas Ubuntu 25.04 will be installed on the NVMe initiator VM.
 
 ```bash
 sudo mkdir --parents /srv/iso
 sudo chown -- "$UID" /srv/iso
 wget https://releases.ubuntu.com/24.04/ubuntu-24.04.4-live-server-amd64.iso \
  --directory-prefix /srv/iso
-wget https://cdimage.ubuntu.com/ubuntu-server/daily-live/current/oracular-live-server-amd64.iso \
+wget https://cdimage.ubuntu.com/ubuntu-server/daily-live/current/questing-live-server-amd64.iso \
  --directory-prefix /srv/iso
 ```
 
