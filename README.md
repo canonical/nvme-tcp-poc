@@ -55,7 +55,7 @@ sudo mkdir --parents /srv/iso
 sudo chown -- "$UID" /srv/iso
 wget https://releases.ubuntu.com/24.04/ubuntu-24.04.4-live-server-amd64.iso \
  --directory-prefix /srv/iso
-wget https://cdimage.ubuntu.com/ubuntu-server/daily-live/current/questing-live-server-amd64.iso \
+wget https://cdimage.ubuntu.com/ubuntu-server/daily-live/current/resolute-live-server-amd64.iso \
  --directory-prefix /srv/iso
 ```
 

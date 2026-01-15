@@ -13,7 +13,7 @@ from ubuntu_nvme_tcp_poc import get_target_ip
 def parse_cli_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--console-output", action="store_true")
-    parser.add_argument("--installer-iso", type=Path, default="/srv/iso/questing-live-server-amd64.iso")
+    parser.add_argument("--installer-iso", type=Path, default="/srv/iso/resolute-live-server-amd64.iso")
     parser.add_argument("--target-ip", type=str)
     parser.add_argument("--target-port", type=int, default=4420)
     return parser.parse_args()
