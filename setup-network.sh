@@ -16,13 +16,15 @@ if [ "$(sysctl --values net.ipv6.conf.all.forwarding)" -ne 1 ]; then
     exit 1
 fi
 
-nmcli connection add \
-  con-name "POC bridge" \
-  ifname pocbr0 \
-  type bridge \
-  autoconnect yes \
-  ipv4.method shared \
-  ipv6.method ignore
+if ! nmcli con show "POC bridge" >/dev/null; then
+    nmcli connection add \
+      con-name "POC bridge" \
+      ifname pocbr0 \
+      type bridge \
+      autoconnect yes \
+      ipv4.method shared \
+      ipv6.method ignore
+fi
 
 if [ -e /usr/libexec/qemu/qemu-bridge-helper ]; then
     sudo setcap cap_net_admin+ep /usr/libexec/qemu/qemu-bridge-helper
@@ -30,10 +32,17 @@ fi
 if [ -e /usr/lib/qemu/qemu-bridge-helper ]; then
     sudo setcap cap_net_admin+ep /usr/lib/qemu/qemu-bridge-helper
 fi
-sudo mkdir --parents /etc/qemu
-echo "allow pocbr0" | sudo dd of=/etc/qemu/bridge.conf
 
-cat > /tmp/netdef.xml <<EOF
+
+if ! grep --quiet '^allow pocbr0$' /etc/qemu/bridge.conf; then
+    echo "Please try the following as root:"
+    echo 'echo "allow pocbr0" >> /etc/qemu/bridge.conf'
+    echo "Then rerun this script." >&2
+    exit 1
+fi
+
+if ! virsh --connect qemu:///session net-info poc-network 2>/dev/null >/dev/null; then
+    cat > /tmp/netdef.xml <<EOF
 <network>
   <name>poc-network</name>
   <forward mode="bridge"/>
@@ -41,8 +50,9 @@ cat > /tmp/netdef.xml <<EOF
 </network>
 EOF
 
-trap "rm -f /tmp/netdef.xml" EXIT
+    trap "rm -f /tmp/netdef.xml" EXIT
 
-virsh --connect qemu:///session net-define /tmp/netdef.xml
-virsh --connect qemu:///session net-start poc-network
-virsh --connect qemu:///session net-autostart poc-network
+    virsh --connect qemu:///session net-define /tmp/netdef.xml
+    virsh --connect qemu:///session net-start poc-network
+    virsh --connect qemu:///session net-autostart poc-network
+fi
